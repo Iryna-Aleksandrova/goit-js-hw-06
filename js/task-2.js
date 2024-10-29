@@ -1,20 +1,44 @@
-// Задача 2. Композиція масивів.
-// Напиши функцію під назвою makeArray, яка приймає три параметри: firstArray (масив),
-// secondArray(масив) і maxLength(число).Функція повинна створювати новий масив,
-// який містить усі елементи з firstArray, а потім усі елементи з secondArray.
+// Задача 2. Склад
+// Створи клас Storage, який створюватиме об'єкти для управління складом товарів.
+// Клас очікує лише один аргумент — початковий масив товарів,
+// який записується до створеного об'єкта в приватну властивість items.
 
-// Якщо кількість елементів у новому масиві перевищує maxLength, функція повинна повернути
-// копію масиву з довжиною maxLength елементів.
-// В іншому випадку функція повинна повернути весь новий масив.
+// Оголоси наступні методи класу:
 
-function makeArray(firstArray, secondArray, maxLength) {
-  const newArray = firstArray.concat(secondArray);
-  return newArray.slice(0, maxLength);
+// getItems() — повертає масив поточних товарів у приватній властивості items.
+// addItem(newItem) — приймає новий товар newItem і додає його до масиву товарів
+// у приватну властивість items об'єкта.
+// removeItem(itemToRemove) — приймає рядок з назвою товару itemToRemove
+// і видаляє його з масиву товарів у приватній властивості items об'єкта.
+
+class Storage {
+  #items;
+
+  constructor(array) {
+    this.#items = array;
+  }
+
+  getItems() {
+    return this.#items;
+  }
+
+  addItem(newItem) {
+    return this.#items.push(newItem);
+  }
+
+  removeItem(itemToRemove) {
+    return (this.#items = this.#items.filter(item => item !== itemToRemove));
+  }
 }
 
-console.log(makeArray(["Mango", "Poly"], ["Ajax", "Chelsea"], 3)); // ["Mango", "Poly", "Ajax"]
-console.log(makeArray(["Mango", "Poly", "Houston"], ["Ajax", "Chelsea"], 4)); // ["Mango", "Poly", "Houston", "Ajax"]
-console.log(makeArray(["Mango"], ["Ajax", "Chelsea", "Poly", "Houston"], 3)); // ["Mango", "Ajax", "Chelsea"]
-console.log(makeArray(["Earth", "Jupiter"], ["Neptune", "Uranus"], 2)); // ["Earth", "Jupiter"]
-console.log(makeArray(["Earth", "Jupiter"], ["Neptune", "Uranus"], 4)); // ["Earth", "Jupiter", "Neptune", "Uranus"]
-console.log(makeArray(["Earth", "Jupiter"], ["Neptune", "Uranus", "Venus"], 0)); // []
+const storage = new Storage(['Nanitoids', 'Prolonger', 'Antigravitator']);
+console.log(storage.getItems()); // ["Nanitoids", "Prolonger", "Antigravitator"]
+
+storage.addItem('Droid');
+console.log(storage.getItems()); // ["Nanitoids", "Prolonger", "Antigravitator", "Droid"]
+
+storage.removeItem('Prolonger');
+console.log(storage.getItems()); // ["Nanitoids", "Antigravitator", "Droid"]
+
+storage.removeItem('Scaner');
+console.log(storage.getItems()); // ["Nanitoids", "Antigravitator", "Droid"]

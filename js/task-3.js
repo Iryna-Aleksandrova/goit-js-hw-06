@@ -1,27 +1,47 @@
-// Задача 3. Фільтрація масиву чисел.
-// Напиши функцію filterArray(numbers, value), яка приймає масив чисел(numbers)
-// та значення(value) як параметри.
-// Функція повинна повертати новий масив лише тих чисел із масиву numbers, які більші за значення value.
+// Задача 3. Конструктор рядків
+// Напиши клас StringBuilder, який приймає один параметр
+// initialValue — довільний рядок, який записується у приватну властивість
+// value об'єкта, що створюється.
 
-// Усередині функції:
-// Створи порожній масив, у який будеш додавати підходящі числа.
-// Використай цикл для ітерації кожного елемента масиву numbers.
-// Використовуй умовний оператор if усередині циклу для перевірки
-// кожного елемента и додавання до свого масиву.
-// Поверни свій новий масив з підходящими числами як результат.
+// Оголоси наступні методи класу:
 
-function filterArray(numbers, value) {
-  const newArray = [];
-  for (const array of numbers) {
-    if (array > value) {
-      newArray.push(array);
-    }
+// getValue() — повертає поточне значення приватної властивості value.
+// padEnd(str) — отримує параметр str (рядок) і додає його в кінець
+// значення приватної властивості value об'єкта, який викликає цей метод.
+// padStart(str) — отримує параметр str (рядок) і додає його на початок
+// значення приватної властивості value об'єкта, який викликає цей метод.
+// padBoth(str) — отримує параметр str (рядок) і додає його на початок і в
+// кінець значення приватної властивості value об'єкта, який викликає цей метод.
+
+class StringBuilder {
+  #value;
+
+  constructor(initialValue) {
+    this.#value = initialValue;
   }
-  return newArray;
+
+  getValue() {
+    return this.#value;
+  }
+
+  padEnd(str) {
+    return (this.#value = this.#value + str);
+  }
+
+  padStart(str) {
+    return (this.#value = str + this.#value);
+  }
+
+  padBoth(str) {
+    return (this.#value = str + this.#value + str);
+  }
 }
 
-console.log(filterArray([1, 2, 3, 4, 5], 3)); // [4, 5]
-console.log(filterArray([1, 2, 3, 4, 5], 4)); // [5]
-console.log(filterArray([1, 2, 3, 4, 5], 5)); // []
-console.log(filterArray([12, 24, 8, 41, 76], 38)); // [41, 76]
-console.log(filterArray([12, 24, 8, 41, 76], 20)); // [24, 41, 76]
+const builder = new StringBuilder('.');
+console.log(builder.getValue()); // "."
+builder.padStart('^');
+console.log(builder.getValue()); // "^."
+builder.padEnd('^');
+console.log(builder.getValue()); // "^.^"
+builder.padBoth('=');
+console.log(builder.getValue()); // "=^.^="
